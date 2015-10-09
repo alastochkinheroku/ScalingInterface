@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>images/button_default.png</file>
+        <file>images/button_pressed.png</file>
+        <file>images/navigation_next_item.png</file>
+        <file>images/navigation_previous_item.png</file>
+        <file>images/tab_selected.png</file>
+        <file>images/tabs_standard.png</file>
+        <file>images/toolbar.png</file>
+        <file>cd_catalog.xml</file>
+        <file>stackPages/AndroidDelegate.qml</file>
+        <file>common/CDItem.qml</file>
+        <file>stackPages/GroupPage.qml</file>
+        <file>tabPages/GroupPage.qml</file>
+    </qresource>
+</RCC>
