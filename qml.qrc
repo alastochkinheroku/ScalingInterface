@@ -13,5 +13,13 @@
         <file>common/CDItem.qml</file>
         <file>stackPages/GroupPage.qml</file>
         <file>tabPages/GroupPage.qml</file>
+        <file>images/Compact_disc@1x.png</file>
+        <file>images/Compact_disc@2x.png</file>
+        <file>images/Compact_disc@3x.png</file>
+        <file>images/compact_disc_icon.svg</file>
+        <file>stackPages/GroupItem.qml</file>
+        <file>tabPages/GroupItem.qml</file>
+        <file>common/CDModel.qml</file>
+        <file>common/GroupModel.qml</file>
     </qresource>
 </RCC>

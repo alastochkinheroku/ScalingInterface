@@ -12,14 +12,32 @@ ApplicationWindow {
     width: 640
     height: 480
     visible: true
-    property bool isSmallWidth: width < 400
+    property bool isSmallWidth: width < 500
 
     property string subHeaderTextMain: "Основное меню" //текст подзаголовка для основного меню
     property variant subHeaderTextList: [subHeaderTextMain] //список текстов подзаголовка текущей страницы
 
+    //Масштабный коэффициент
+    property int scaleFactor: 1
+
+    //Изменение масштабного коэффициента
+    Action { shortcut: "Ctrl+1"; onTriggered: scaleFactor=1; }
+    Action { shortcut: "Ctrl+2"; onTriggered: scaleFactor=2; }
+    Action { shortcut: "Ctrl+3"; onTriggered: scaleFactor=3; }
+
+    // масштабирование для пикселей (целочисленное)
+    function sp(value) {
+        return value << (scaleFactor - 1);
+    }
+
+    // масштаб для изображения
+    function scaled_image(value) {
+        return value + "@"+scaleFactor+"x.png";
+    }
+
     //Топ-бар виден только при уменьшенном режиме
     toolBar: BorderImage {
-        border.bottom: 8
+        border.bottom: sp(8)
         source: "images/toolbar.png"
         width: parent.width
         height: mainWindow.height * 0.2
@@ -28,14 +46,14 @@ ApplicationWindow {
         //Кнопка возврата назад
         Rectangle {
             id: backButton
-            width: opacity ? 60 : 0
+            width: opacity ? sp(60) : 0
             anchors.left: parent.left
-            anchors.leftMargin: 20
+            anchors.leftMargin: sp(20)
             opacity: (stackView.depth > 1) ? 1 : 0
             anchors.verticalCenter: parent.verticalCenter
             antialiasing: true
             height: mainWindow.height * 0.2
-            radius: 4
+            radius: sp(4)
             color: backmouse.pressed ? "#222" : "transparent"
             Behavior on opacity {
                 NumberAnimation {
@@ -111,23 +129,23 @@ ApplicationWindow {
             }
             tab: Item {
                 implicitWidth: control.width / control.count
-                implicitHeight: 50
+                implicitHeight: sp(50)
                 BorderImage {
                     anchors.fill: parent
-                    border.bottom: 8
-                    border.top: 8
+                    border.bottom: sp(8)
+                    border.top: sp(8)
                     source: styleData.selected ? "images/tab_selected.png" : "images/tabs_standard.png"
                     Text {
                         anchors.centerIn: parent
                         color: "white"
                         text: styleData.title.toUpperCase()
-                        font.pixelSize: 16
+                        font.pixelSize: sp(16)
                     }
                     Rectangle {
                         visible: index > 0
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        anchors.margins: 10
+                        anchors.margins: sp(10)
                         width: 1
                         color: "#3a3a3a"
                     }

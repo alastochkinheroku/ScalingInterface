@@ -1,35 +1,66 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.1
-import QtQuick.XmlListModel 2.0
 
 import "../common"
 
-Flow {
-    id: gridView
-    property int formIndex: 0
+ScrollView {
+    id: view
+    property int formIndex
     anchors.fill: parent
-    //width: parent.width
-    //height: childrenRect.height
 
-    //Модель наименований групп
-    XmlListModel {
-        id: groupModel
-        source: "qrc:/cd_catalog.xml"
-        // (note in XPath the first index is 1, not 0)
-        query: "/CATALOG/FORM["+(formIndex+1)+"]/GROUP"
-        //Заголовок группы
-        XmlRole { name: "title"; query: "@name/string()" }
+    flickableItem.interactive: false
+
+    Column {
+        id: gridView
+        width: parent.width
+        property int formIndex
+
+        Repeater{
+            model: GroupModel{
+                formIndex: view.formIndex
+            }
+            delegate: Item{
+                    width: view.width
+                    height: sp(230)
+                    Text{
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        anchors.leftMargin: sp(20)
+                        text: title
+                    }
+
+                    GroupItem{
+                        id: cdGroup
+                        y: sp(30)
+                        width: parent.width
+                        height: sp(200)
+                        formIndex:  gridView.formIndex
+                        groupIndex: index
+                    }
+            }
+        }
+
     }
 
-    Repeater{
-        model: groupModel
-
-        delegate: CDItem{
-                width: 100
-                formIndex:  gridView.formIndex
-                groupIndex: index
-             }
-    }
-
+    //Стиль для скроллера
+//    style: ScrollViewStyle {
+//            transientScrollBars: true
+//            handle: Item {
+//                implicitWidth: 14
+//                implicitHeight: 26
+//                Rectangle {
+//                    color: "#424246"
+//                    anchors.fill: parent
+//                    anchors.topMargin: 6
+//                    anchors.leftMargin: 4
+//                    anchors.rightMargin: 4
+//                    anchors.bottomMargin: 6
+//                }
+//            }
+//            scrollBarBackground: Item {
+//                implicitWidth: 14
+//                implicitHeight: 26
+//            }
+//        }
 }
